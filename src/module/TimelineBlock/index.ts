@@ -1,4 +1,4 @@
-import { TimelineBlockViwe as TimelineBlock } from './TimelineBlockViwe';
+import { TimelineBlock } from './TimelineBlock';
 
 export { TimelineBlock };
 

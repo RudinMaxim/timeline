@@ -1,11 +1,12 @@
-import { TimelineData } from "@/constants/timelineData";
 import { TimelineBlock } from "@/module";
+import { timelineData } from "@/shared/constants/timelineData";
 
 export default function Home() {
   return (
-    <main >
+    <main>
       <TimelineBlock
-        timelineData={TimelineData}
+        title="Исторические даты"
+        timelineData={timelineData}
       />
     </main>
   );

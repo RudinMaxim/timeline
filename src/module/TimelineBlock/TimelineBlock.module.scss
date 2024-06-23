@@ -1,0 +1,127 @@
+.timeline__block {
+	min-height: 100dvh;
+	height: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+
+	&__title {
+		max-width: 350px;
+		width: 100%;
+		position: relative;
+		font-size: clamp(1.5rem, 3vw, 3.5rem);
+		font-weight: 700;
+		padding: 0 calc(5px + 4rem);
+		color: var(--text-color);
+		line-height: 1.2;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0rem;
+			bottom: 0rem;
+			width: 5px;
+			left: 0;
+			right: auto;
+			background-image: linear-gradient(
+				to bottom,
+				var(--primary-color) 0%,
+				var(--secondary-color) 100%
+			);
+		}
+
+		@media screen and (max-width: 420px) {
+			font-size: 1.5rem;
+			padding: 0 1rem;
+			max-width: 100%;
+			margin-top: 5rem;
+
+			&::before {
+				content: none;
+			}
+		}
+	}
+
+	&__events {
+		position: relative;
+		&__event {
+			padding: 0 calc(5px + 4rem);
+
+			&__slider{
+				height: 500px;
+			}
+		}
+
+		&__card {
+			max-width: 320px;
+			font-weight: 400;
+			text-align: start;
+			cursor: grabbing;
+
+			h3 {
+				color: var(--primary-color);
+				font-size: 1.75rem;
+				margin-bottom: 1rem;
+			}
+
+			p {
+				font-size: 1.5rem;
+				color: var(--text-color);
+			}
+		}
+
+		button {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			margin: 0 1rem;
+			z-index: 10;
+
+			&:first-child {
+				left: 0;
+			}
+
+			&:last-child {
+				right: 0;
+			}
+		}
+
+		@media (max-width: 768px) {
+			&__card {
+				max-width: 200px;
+				h3 {
+					font-size: 1.125rem;
+				}
+				p {
+					font-size: 1rem;
+				}
+			}
+
+			.swiper-pagination {
+				position: absolute;
+				bottom: -20px;
+				left: 0;
+				right: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.swiper-pagination-bullet {
+				width: 8px;
+				height: 8px;
+				background-color: var(--primary-color);
+				opacity: 0.5;
+				margin: 0 4px;
+				border-radius: 50%;
+				cursor: pointer;
+				transition: opacity 0.3s ease;
+
+				&-active {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}

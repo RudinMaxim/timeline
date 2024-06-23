@@ -1,0 +1,48 @@
+@import '~swiper/css';
+
+:root {
+	--max-width: 1440px;
+	--border-radius: 15px;
+
+	--transition: 0.3s ease-in-out;
+	--border-radius-black: 2rem;
+
+	--primary-color: rgba(56, 119, 238, 1);
+	--secondary-color: rgba(239, 93, 168, 1);
+	--tertiary-color: #538af7;
+	--bg-color: #ffffff;
+	--text-color: rgba(66, 86, 122, 1);
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body,
+html {
+	position: relative;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.5;
+	scroll-behavior: smooth;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+.container {
+	max-width: var(--max-width);
+	width: 100%;
+	margin: 0 auto;
+	border: 0.1px solid rgba(66, 86, 122, 0.2);
+	background-color: var(--bg-color);
+}
