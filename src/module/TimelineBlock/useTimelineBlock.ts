@@ -21,6 +21,7 @@ export function useTimelineBlock({ timelineData, ...rest }: ITimelineBlock) {
 		activePeriod,
 		activePeriodIndex,
 		handlePeriodChange,
+		timelineData,
 		...rest,
 	};
 }

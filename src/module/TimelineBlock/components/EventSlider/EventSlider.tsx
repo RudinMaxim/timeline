@@ -47,14 +47,24 @@ export function EventSlider({ activePeriod }: IEventSlider) {
                 className={styles.event__slider}
                 onSlideChange={handleSlideChange}
                 onSwiper={handleSlideChange}
-                pagination={isMobile ? { clickable: true } : false}
+                pagination={isMobile ? {
+                    clickable: true,
+                    el: '.custom__pagination',
+                } : false}
+                // pagination={isMobile ? { clickable: true } : false}
             >
                 {events.map(event => (
                     <SwiperSlide key={`EventSlider__${event.description}`} className={styles['timeline__block__events__event']} >
                         <EventCard {...event} />
                     </SwiperSlide>
                 ))}
+
+
             </Swiper>
+
+            {isMobile && (
+                <div className={`custom__pagination ${styles.custom__pagination}`}></div>
+            )}
 
             {!isMobile && !isEnd &&
                 <Button onClick={goNext} disabled={isEnd}>

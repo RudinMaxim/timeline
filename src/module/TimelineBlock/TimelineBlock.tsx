@@ -11,21 +11,16 @@ export interface ITimelineBlock {
 }
 
 export function TimelineBlock(props: ITimelineBlock) {
-  const { title, activePeriod, handlePeriodChange, activePeriodIndex, ...rest } = useTimelineBlock(props)
+  const { title, activePeriod, handlePeriodChange, activePeriodIndex, timelineData, ...rest } = useTimelineBlock(props)
 
   return (
     <section className={`${styles['timeline__block']} container`} {...rest}>
       <TimelineBlockTitle title={title} />
-      <CircleNav timelineData={[activePeriod]} />
+      <CircleNav handlePeriodChange={handlePeriodChange}
+        activePeriodIndex={activePeriodIndex} timelineData={timelineData} />
       <EventSlider
         activePeriod={activePeriod}
       />
     </section>
   )
 }
-
-
-
-
-
-

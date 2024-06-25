@@ -18,7 +18,6 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	border: 0;
 }
 
 body,
@@ -45,4 +44,32 @@ li {
 	margin: 0 auto;
 	border: 0.1px solid rgba(66, 86, 122, 0.2);
 	background-color: var(--bg-color);
+	position: relative;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 0.1px;
+		height: 100%;
+		background-color: rgba(66, 86, 122, 0.2);
+	}
+
+	&:after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: 0.1px;
+		background-color: rgba(66, 86, 122, 0.2);
+	}
+
+	@media screen and (max-width: 768px) {
+		&:before,
+		&:after {
+			content: none;
+		}
+	}
 }
