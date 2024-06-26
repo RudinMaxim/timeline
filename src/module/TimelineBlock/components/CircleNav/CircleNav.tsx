@@ -13,15 +13,28 @@ export interface ICircleNav {
 
 
 export function CircleNav(props: ICircleNav) {
-    const { timelineData, uniqueTags, length, getPointPosition, setHoveredTeg, hoveredTeg, handlePeriodChange, handleNextPeriod, activePeriodIndex, handlePrevPeriod } = useCircleNav(props);
+    const {
+        currentStart,
+        currentEnd,
+        startRef,
+        endRef,
+        uniqueTags,
+        length,
+        getPointPosition,
+        setHoveredTeg,
+        hoveredTeg,
+        handlePeriodChange,
+        handleNextPeriod,
+        activePeriodIndex,
+        handlePrevPeriod
+    } = useCircleNav(props);
 
-    const { start, end, events } = timelineData
 
     return (
         <nav className={style['timeline__block__circle-nav']}>
             <div className={style['timeline__block__circle-nav__date']}>
-                <span className={style.start}>{start}</span>
-                <span className={style.end}>{end}</span>
+                <span ref={startRef} className={style.start}>{currentStart}</span>
+                <span ref={endRef} className={style.end}>{currentEnd}</span>
             </div>
 
             <div className={style['timeline__block__circle-nav__circle']}>
@@ -55,16 +68,20 @@ export function CircleNav(props: ICircleNav) {
                 <span>
                     {activePeriodIndex + 1}/{length}
                 </span>
-                <div>
-                    <Button onClick={handlePrevPeriod}>
+                <ul>
+                    <li>
+                        <Button onClick={handlePrevPeriod}>
 
-                        <Image alt="chevron left" src="/chevron_left.svg" width={20} height={20} />
-                    </Button>
+                            <Image alt="chevron left" src="/chevron_left.svg" width={20} height={20} />
+                        </Button>
+                    </li>
 
-                    <Button onClick={handleNextPeriod}>
-                        <Image alt="chevron right" src="/chevron_right.svg" width={20} height={20} />
-                    </Button>
-                </div>
+                    <li>
+                        <Button onClick={handleNextPeriod}>
+                            <Image alt="chevron right" src="/chevron_right.svg" width={20} height={20} />
+                        </Button>
+                    </li>
+                </ul>
 
             </div>
         </nav>

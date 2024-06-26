@@ -1,5 +1,6 @@
 import { Teg, TimelineData } from '@/shared/constants/timelineData';
-import { useState } from 'react';
+import gsap from 'gsap';
+import { useEffect, useRef, useState } from 'react';
 import { ICircleNav } from './CircleNav';
 
 function getAllUniqueTags(timelineData: TimelineData): Teg[] {
@@ -15,39 +16,80 @@ export function useCircleNav({
 	...rest
 }: ICircleNav) {
 	const [hoveredTeg, setHoveredTeg] = useState<number | null>(null);
-	const uniqueTags: Teg[] = getAllUniqueTags(timelineData[activePeriodIndex]);
+    const [currentStart, setCurrentStart] = useState(timelineData[activePeriodIndex].start);
+    const [currentEnd, setCurrentEnd] = useState(timelineData[activePeriodIndex].end);
+    
+    const startRef = useRef<HTMLSpanElement>(null);
+    const endRef = useRef<HTMLSpanElement>(null);
 
-	const handlePrevPeriod = () => {
-		if (activePeriodIndex > 0) {
-			handlePeriodChange(activePeriodIndex - 1);
-		}
-	};
+    const uniqueTags: Teg[] = getAllUniqueTags(timelineData[activePeriodIndex]);
 
-	const handleNextPeriod = () => {
-		if (activePeriodIndex < timelineData.length - 1) {
-			handlePeriodChange(activePeriodIndex + 1);
-		}
-	};
+    const animateYearChange = (start: number, end: number) => {
+        if (startRef.current && endRef.current) {
 
-	const getPointPosition = (index: number, total: number) => {
-		const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
-		const radius = 530 / 2;
-		const x = radius * Math.cos(angle) + radius;
-		const y = radius * Math.sin(angle) + radius;
-		return { x, y };
-	};
+            gsap.fromTo([startRef.current, endRef.current], 
+                { scale: 0.8, opacity: 0 },
+                { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" }
+            );
 
-	return {
-		hoveredTeg,
-		setHoveredTeg,
-		length: timelineData.length,
-		uniqueTags,
-		timelineData: timelineData[activePeriodIndex],
-		activePeriodIndex,
-		handlePeriodChange,
-		handlePrevPeriod,
-		handleNextPeriod,
-		getPointPosition,
-		...rest,
-	};
+            gsap.to(startRef.current, {
+                innerHTML: start,
+                duration: 1,
+                snap: { innerHTML: 1 },
+                ease: "power1.inOut"
+            });
+
+            gsap.to(endRef.current, {
+				
+                innerHTML: end,
+                duration: 1,
+                snap: { innerHTML: 1 },
+                ease: "power1.inOut"
+            });
+        }
+    };
+
+    useEffect(() => {
+        setCurrentStart(timelineData[activePeriodIndex].start);
+        setCurrentEnd(timelineData[activePeriodIndex].end);
+        animateYearChange(timelineData[activePeriodIndex].start, timelineData[activePeriodIndex].end);
+    }, [activePeriodIndex, timelineData]);
+
+    const handlePrevPeriod = () => {
+        if (activePeriodIndex > 0) {
+            handlePeriodChange(activePeriodIndex - 1);
+        }
+    };
+
+    const handleNextPeriod = () => {
+        if (activePeriodIndex < timelineData.length - 1) {
+            handlePeriodChange(activePeriodIndex + 1);
+        }
+    };
+
+    const getPointPosition = (index: number, total: number) => {
+        const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
+        const radius = 530 / 2;
+        const x = radius * Math.cos(angle) + radius;
+        const y = radius * Math.sin(angle) + radius;
+        return { x, y };
+    };
+
+    return {
+        hoveredTeg,
+        setHoveredTeg,
+        currentStart,
+        currentEnd,
+        startRef,
+        endRef,
+        length: timelineData.length,
+        uniqueTags,
+        timelineData: timelineData[activePeriodIndex],
+        activePeriodIndex,
+        handlePeriodChange,
+        handlePrevPeriod,
+        handleNextPeriod,
+        getPointPosition,
+        ...rest,
+    };
 }

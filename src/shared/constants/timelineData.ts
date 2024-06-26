@@ -77,7 +77,7 @@ export const timelineData: TimelineData[] = [
 			},
 			{
 				year: 2002,
-				description: 'Запуск первой коммерческой космической миссии',
+				description: 'Запуск первой коммерческой космической',
 				teg: Teg.Teg4,
 			},
 			{
